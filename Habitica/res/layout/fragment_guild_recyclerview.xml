@@ -12,7 +12,7 @@
             android:layout_height="match_parent">
 
 
-        <com.habitrpg.android.habitica.ui.helpers.RecyclerViewEmptySupport
+        <com.habitrpg.android.habitica.old.ui.helpers.RecyclerViewEmptySupport
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -1,6 +1,6 @@
 package com.magicmicky.habitrpgwrapper.lib.models.inventory;
 
-import com.habitrpg.android.habitica.HabitDatabase;
+import com.habitrpg.android.habitica.old.HabitDatabase;
 import com.magicmicky.habitrpgwrapper.lib.models.QuestBoss;
 import com.magicmicky.habitrpgwrapper.lib.models.QuestCollect;
 import com.raizlabs.android.dbflow.annotation.Column;

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp" />
 
-    <com.habitrpg.android.habitica.ui.AvatarView
+    <com.habitrpg.android.habitica.old.ui.AvatarView
         android:layout_width="@dimen/avatar_small_width"
         android:layout_height="@dimen/avatar_small_height"
         android:id="@+id/avatarView"

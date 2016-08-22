@@ -2,7 +2,7 @@ package com.magicmicky.habitrpgwrapper.lib.models.tasks;
 
 import com.google.gson.annotations.SerializedName;
 
-import com.habitrpg.android.habitica.HabitDatabase;
+import com.habitrpg.android.habitica.old.HabitDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;

@@ -1,12 +1,10 @@
 package com.magicmicky.habitrpgwrapper.lib.models.tasks;
 
-import android.util.Log;
-
 import com.google.gson.annotations.SerializedName;
 
-import com.habitrpg.android.habitica.HabitDatabase;
+import com.habitrpg.android.habitica.old.HabitDatabase;
 import com.habitrpg.android.habitica.R;
-import com.habitrpg.android.habitica.events.TaskDeleteEvent;
+import com.habitrpg.android.habitica.old.events.TaskDeleteEvent;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;

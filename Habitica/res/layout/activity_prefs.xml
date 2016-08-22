@@ -4,7 +4,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".ui.activities.PrefsActivity">
+             tools:context=".old.ui.activities.PrefsActivity">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -18,7 +18,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activities.MainActivity"
+        tools:context=".old.ui.activities.MainActivity"
         android:layout_gravity="center_horizontal|bottom">
 
         <android.support.design.widget.AppBarLayout

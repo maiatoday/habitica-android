@@ -7,7 +7,7 @@
     android:paddingEnd="24dip"
     android:paddingStart="24dip"
     android:paddingRight="24dip">
-    <com.habitrpg.android.habitica.ui.AvatarView
+    <com.habitrpg.android.habitica.old.ui.AvatarView
         android:layout_width="@dimen/avatar_small_width"
         android:layout_height="@dimen/avatar_small_height"
         android:id="@+id/avatarView"

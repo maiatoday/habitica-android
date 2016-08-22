@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.MainActivity"
+    tools:context=".old.ui.activities.MainActivity"
     android:id="@+id/overlayFrameLayout">
 <android.support.v4.widget.DrawerLayout
     android:id="@+id/drawer_layout"
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="0dp"
-        tools:context=".ui.activities.MainActivity">
+        tools:context=".old.ui.activities.MainActivity">
 
         <FrameLayout
             android:id="@+id/fragment_container"

@@ -1,25 +1,15 @@
 package com.habitrpg.android.habitica.api;
 
 
-import com.habitrpg.android.habitica.APIHelper;
+import com.habitrpg.android.habitica.old.APIHelper;
 import com.habitrpg.android.habitica.BuildConfig;
-import com.habitrpg.android.habitica.HostConfig;
-import com.magicmicky.habitrpgwrapper.lib.models.HabitRPGUser;
+import com.habitrpg.android.habitica.old.HostConfig;
 import com.magicmicky.habitrpgwrapper.lib.models.UserAuthResponse;
-import com.magicmicky.habitrpgwrapper.lib.models.tasks.Task;
-import com.magicmicky.habitrpgwrapper.lib.models.tasks.TaskList;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.annotation.Config;
-
-import android.os.Build;
 
 import java.security.InvalidParameterException;
-import java.util.List;
 import java.util.UUID;
 
 import rx.observers.TestSubscriber;

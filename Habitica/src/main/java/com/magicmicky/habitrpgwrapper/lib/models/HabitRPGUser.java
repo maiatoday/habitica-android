@@ -2,8 +2,8 @@ package com.magicmicky.habitrpgwrapper.lib.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import com.habitrpg.android.habitica.HabitDatabase;
-import com.habitrpg.android.habitica.ui.AvatarView;
+import com.habitrpg.android.habitica.old.HabitDatabase;
+import com.habitrpg.android.habitica.old.ui.AvatarView;
 import com.magicmicky.habitrpgwrapper.lib.models.invitations.Invitations;
 import com.magicmicky.habitrpgwrapper.lib.models.tasks.Task;
 import com.magicmicky.habitrpgwrapper.lib.models.tasks.TasksOrder;

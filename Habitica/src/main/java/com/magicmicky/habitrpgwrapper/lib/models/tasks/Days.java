@@ -1,6 +1,6 @@
 package com.magicmicky.habitrpgwrapper.lib.models.tasks;
 
-import com.habitrpg.android.habitica.HabitDatabase;
+import com.habitrpg.android.habitica.old.HabitDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ModelContainer;
 import com.raizlabs.android.dbflow.annotation.NotNull;

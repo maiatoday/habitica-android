@@ -1,9 +1,8 @@
 package com.magicmicky.habitrpgwrapper.lib.models.tasks;
 
-import com.habitrpg.android.habitica.HabitDatabase;
-import com.habitrpg.android.habitica.database.ExcludeCheckListItem;
-import com.habitrpg.android.habitica.events.ReminderDeleteEvent;
-import com.habitrpg.android.habitica.events.TaskSaveEvent;
+import com.habitrpg.android.habitica.old.HabitDatabase;
+import com.habitrpg.android.habitica.old.database.ExcludeCheckListItem;
+import com.habitrpg.android.habitica.old.events.ReminderDeleteEvent;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;

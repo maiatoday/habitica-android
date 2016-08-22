@@ -2,8 +2,7 @@ package com.magicmicky.habitrpgwrapper.lib.models.invitations;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.habitrpg.android.habitica.HabitDatabase;
-import com.magicmicky.habitrpgwrapper.lib.models.invitations.PartyInvite;
+import com.habitrpg.android.habitica.old.HabitDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.NotNull;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -12,7 +11,6 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by keithholliday on 7/2/16.

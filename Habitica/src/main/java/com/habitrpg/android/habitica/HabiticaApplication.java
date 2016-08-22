@@ -8,8 +8,13 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.habitrpg.android.habitica.components.AppComponent;
 import com.habitrpg.android.habitica.components.DaggerAppComponent;
 import com.habitrpg.android.habitica.modules.AppModule;
-import com.habitrpg.android.habitica.ui.activities.IntroActivity;
-import com.habitrpg.android.habitica.ui.activities.LoginActivity;
+import com.habitrpg.android.habitica.modules.RepositoryModule;
+import com.habitrpg.android.habitica.old.APIHelper;
+import com.habitrpg.android.habitica.old.HabitDatabase;
+import com.habitrpg.android.habitica.old.HabiticaPurchaseVerifier;
+import com.habitrpg.android.habitica.old.HostConfig;
+import com.habitrpg.android.habitica.old.ui.activities.IntroActivity;
+import com.habitrpg.android.habitica.old.ui.activities.LoginActivity;
 import com.magicmicky.habitrpgwrapper.lib.models.HabitRPGUser;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.squareup.leakcanary.LeakCanary;
@@ -46,6 +51,8 @@ import javax.inject.Inject;
 
 import dagger.Lazy;
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class HabiticaApplication extends MultiDexApplication {
 
@@ -72,16 +79,6 @@ public class HabiticaApplication extends MultiDexApplication {
 
     public static HabiticaApplication getInstance(Context context) {
         return (HabiticaApplication) context.getApplicationContext();
-    }
-
-    public static boolean exists(@NonNull Context context) {
-        try {
-            File dbFile = context.getDatabasePath(String.format("%s.db", HabitDatabase.NAME));
-            return dbFile.exists();
-        } catch (Exception exception) {
-            Log.e("DbExists", "Database %s doesn't exist.", exception);
-            return false;
-        }
     }
 
     private static void setFinalStatic(Field field, Object newValue) throws NoSuchFieldException, IllegalAccessException {
@@ -124,6 +121,7 @@ public class HabiticaApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        setupDatabase();
         setupDagger();
         setupLeakCanary();
         setupFlowManager();
@@ -138,6 +136,14 @@ public class HabiticaApplication extends MultiDexApplication {
 
         Fresco.initialize(this);
         checkIfNewVersion();
+    }
+
+    private void setupDatabase() {
+        RealmConfiguration config = new RealmConfiguration.Builder(this)
+                .schemaVersion(3)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(config);
     }
 
     private void checkIfNewVersion() {
@@ -248,73 +254,13 @@ public class HabiticaApplication extends MultiDexApplication {
     }
 
     @Override
-    public SQLiteDatabase openOrCreateDatabase(String name,
-                                               int mode, SQLiteDatabase.CursorFactory factory) {
-        return super.openOrCreateDatabase(getDatabasePath(name).getAbsolutePath(), mode, factory);
-    }
-
-    @Override
-    public SQLiteDatabase openOrCreateDatabase(String name,
-                                               int mode, SQLiteDatabase.CursorFactory factory, DatabaseErrorHandler errorHandler) {
-        return super.openOrCreateDatabase(getDatabasePath(name).getAbsolutePath(), mode, factory, errorHandler);
-    }
-
-    @Override
     public boolean deleteDatabase(String name) {
-        if (!name.endsWith(".db")) {
-            name += ".db";
-        }
-
-        FlowManager.destroy();
-        reflectionHack(getApplicationContext());
-
-        boolean deleted = super.deleteDatabase(getDatabasePath(name).getAbsolutePath());
-
-        if (deleted) {
-            Log.i("hack", "Database deleted");
-        } else {
-            Log.e("hack", "Database not deleted");
-        }
-
-        if (exists(getApplicationContext())) {
-            Log.i("hack", "Database exists before FlowManager.init");
-        } else {
-            Log.i("hack", "Database does not exist before FlowManager.init");
-        }
-
-        return deleted;
+        return true;
     }
 
     // endregion
 
     // region IAP - Specific
-
-    // Hack for DBFlow - Not deleting Database
-    // https://github.com/kaeawc/dbflow-sample-app/blob/master/app/src/main/java/io/kaeawc/flow/app/ui/MainActivityFragment.java#L201
-    private void reflectionHack(@NonNull Context context) {
-
-        try {
-            Field field = FlowManager.class.getDeclaredField("mDatabaseHolder");
-            setFinalStatic(field, null);
-        } catch (NoSuchFieldException noSuchField) {
-            Log.e("nosuchfield", "No such field exists in FlowManager", noSuchField);
-        } catch (IllegalAccessException illegalAccess) {
-            Log.e("illegalaccess", "Illegal access of FlowManager", illegalAccess);
-        }
-
-        FlowManager.init(context);
-
-        if (exists(context)) {
-            Log.i("Database", "Database exists after FlowManager.init with reflection hack");
-        } else {
-            Log.i("Database", "Database does not exist after FlowManager.init with reflection hack");
-        }
-    }
-
-    @Override
-    public File getDatabasePath(String name) {
-        return new File(getExternalFilesDir(null), "HabiticaDatabase/" + name);
-    }
 
     private void createBillingAndCheckout() {
         billing = new Billing(this, new Billing.DefaultConfiguration() {

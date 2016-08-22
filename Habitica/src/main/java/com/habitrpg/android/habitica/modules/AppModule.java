@@ -1,9 +1,13 @@
 package com.habitrpg.android.habitica.modules;
 
-import com.habitrpg.android.habitica.APIHelper;
+import com.habitrpg.android.habitica.old.APIHelper;
 import com.habitrpg.android.habitica.HabiticaApplication;
 import com.habitrpg.android.habitica.R;
-import com.habitrpg.android.habitica.helpers.TagsHelper;
+import com.habitrpg.android.habitica.domain.executors.JobExecutor;
+import com.habitrpg.android.habitica.domain.executors.PostExecutionThread;
+import com.habitrpg.android.habitica.domain.executors.ThreadExecutor;
+import com.habitrpg.android.habitica.domain.executors.UIThread;
+import com.habitrpg.android.habitica.old.helpers.TagsHelper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,6 +18,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
 
 @Module
 public class AppModule {
@@ -46,5 +51,22 @@ public class AppModule {
     @Singleton
     public TagsHelper providesTagsHelper() {
         return new TagsHelper();
+    }
+
+    @Provides
+    @Singleton
+    ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
+        return jobExecutor;
+    }
+
+    @Provides
+    @Singleton
+    PostExecutionThread providePostExecutionThread(UIThread uiThread) {
+        return uiThread;
+    }
+
+    @Provides
+    Realm providesRealm() {
+        return Realm.getDefaultInstance();
     }
 }

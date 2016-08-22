@@ -16,7 +16,7 @@
             android:id="@+id/titleTextView"
             android:background="@color/brand_100"
             android:textColor="@android:color/white"/>
-        <com.habitrpg.android.habitica.ui.helpers.RecyclerViewEmptySupport
+        <com.habitrpg.android.habitica.old.ui.helpers.RecyclerViewEmptySupport
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

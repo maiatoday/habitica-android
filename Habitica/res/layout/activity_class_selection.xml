@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 style="@style/CardContent"
                 android:background="@drawable/selection_highlight">
-                <com.habitrpg.android.habitica.ui.AvatarView
+                <com.habitrpg.android.habitica.old.ui.AvatarView
                     android:id="@+id/healerAvatarView"
                     android:layout_width="@dimen/avatar_header_width"
                     android:layout_height="@dimen/avatar_header_height" />
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 style="@style/CardContent"
                 android:background="@drawable/selection_highlight">
-                <com.habitrpg.android.habitica.ui.AvatarView
+                <com.habitrpg.android.habitica.old.ui.AvatarView
                     android:id="@+id/mageAvatarView"
                     android:layout_width="@dimen/avatar_header_width"
                     android:layout_height="@dimen/avatar_header_height" />
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 style="@style/CardContent"
                 android:background="@drawable/selection_highlight">
-                <com.habitrpg.android.habitica.ui.AvatarView
+                <com.habitrpg.android.habitica.old.ui.AvatarView
                     android:id="@+id/rogueAvatarView"
                     android:layout_width="@dimen/avatar_header_width"
                     android:layout_height="@dimen/avatar_header_height" />
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 style="@style/CardContent"
                 android:background="@drawable/selection_highlight">
-                <com.habitrpg.android.habitica.ui.AvatarView
+                <com.habitrpg.android.habitica.old.ui.AvatarView
                     android:id="@+id/warriorAvatarView"
                     android:layout_width="@dimen/avatar_header_width"
                     android:layout_height="@dimen/avatar_header_height" />

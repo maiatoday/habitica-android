@@ -1,8 +1,8 @@
 package com.habitrpg.android.habitica.modules;
 
-import com.habitrpg.android.habitica.APIHelper;
-import com.habitrpg.android.habitica.ContentCache;
-import com.habitrpg.android.habitica.HostConfig;
+import com.habitrpg.android.habitica.old.APIHelper;
+import com.habitrpg.android.habitica.old.ContentCache;
+import com.habitrpg.android.habitica.old.HostConfig;
 import com.magicmicky.habitrpgwrapper.lib.api.MaintenanceApiService;
 
 import android.content.Context;

@@ -1,66 +1,68 @@
 package com.habitrpg.android.habitica.components;
 
 import com.habitrpg.android.habitica.HabiticaApplication;
-import com.habitrpg.android.habitica.helpers.notifications.PushNotificationManager;
+import com.habitrpg.android.habitica.modules.RepositoryModule;
+import com.habitrpg.android.habitica.old.helpers.notifications.PushNotificationManager;
 import com.habitrpg.android.habitica.modules.ApiModule;
 import com.habitrpg.android.habitica.modules.AppModule;
-import com.habitrpg.android.habitica.receivers.LocalNotificationActionReceiver;
-import com.habitrpg.android.habitica.ui.activities.AboutActivity;
-import com.habitrpg.android.habitica.ui.activities.ClassSelectionActivity;
-import com.habitrpg.android.habitica.ui.activities.FullProfileActivity;
-import com.habitrpg.android.habitica.ui.activities.GroupFormActivity;
-import com.habitrpg.android.habitica.ui.activities.IntroActivity;
-import com.habitrpg.android.habitica.ui.activities.LoginActivity;
-import com.habitrpg.android.habitica.ui.activities.MainActivity;
-import com.habitrpg.android.habitica.ui.activities.MaintenanceActivity;
-import com.habitrpg.android.habitica.ui.activities.PartyInviteActivity;
-import com.habitrpg.android.habitica.ui.activities.PrefsActivity;
-import com.habitrpg.android.habitica.ui.activities.SetupActivity;
-import com.habitrpg.android.habitica.ui.activities.SkillTasksActivity;
-import com.habitrpg.android.habitica.ui.activities.TaskFormActivity;
-import com.habitrpg.android.habitica.ui.fragments.GemsPurchaseFragment;
-import com.habitrpg.android.habitica.ui.fragments.NewsFragment;
-import com.habitrpg.android.habitica.ui.fragments.faq.FAQDetailFragment;
-import com.habitrpg.android.habitica.ui.fragments.faq.FAQOverviewFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.customization.AvatarCustomizationFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.customization.AvatarOverviewFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.equipment.EquipmentDetailFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.equipment.EquipmentOverviewFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.items.ItemRecyclerFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.items.ItemsFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.shops.ShopFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.shops.ShopsFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.stable.MountDetailRecyclerFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.stable.PetDetailRecyclerFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.stable.StableFragment;
-import com.habitrpg.android.habitica.ui.fragments.inventory.stable.StableRecyclerFragment;
-import com.habitrpg.android.habitica.ui.fragments.preferences.PreferencesFragment;
-import com.habitrpg.android.habitica.ui.fragments.setup.AvatarSetupFragment;
-import com.habitrpg.android.habitica.ui.fragments.setup.IntroFragment;
-import com.habitrpg.android.habitica.ui.fragments.setup.TaskSetupFragment;
-import com.habitrpg.android.habitica.ui.fragments.skills.SkillTasksRecyclerViewFragment;
-import com.habitrpg.android.habitica.ui.fragments.skills.SkillsFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.ChatListFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.GroupInformationFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.GuildFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.GuildsOverviewFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.InboxFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.InboxMessageListFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.PublicGuildsFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.TavernFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.party.PartyFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.party.PartyInviteFragment;
-import com.habitrpg.android.habitica.ui.fragments.social.party.PartyMemberListFragment;
-import com.habitrpg.android.habitica.ui.fragments.tasks.TaskRecyclerViewFragment;
-import com.habitrpg.android.habitica.ui.fragments.tasks.TasksFragment;
-import com.habitrpg.android.habitica.widget.UpdateWidgetService;
+import com.habitrpg.android.habitica.old.receivers.LocalNotificationActionReceiver;
+import com.habitrpg.android.habitica.old.ui.activities.AboutActivity;
+import com.habitrpg.android.habitica.old.ui.activities.ClassSelectionActivity;
+import com.habitrpg.android.habitica.old.ui.activities.FullProfileActivity;
+import com.habitrpg.android.habitica.old.ui.activities.GroupFormActivity;
+import com.habitrpg.android.habitica.old.ui.activities.IntroActivity;
+import com.habitrpg.android.habitica.old.ui.activities.LoginActivity;
+import com.habitrpg.android.habitica.old.ui.activities.MainActivity;
+import com.habitrpg.android.habitica.old.ui.activities.MaintenanceActivity;
+import com.habitrpg.android.habitica.old.ui.activities.PartyInviteActivity;
+import com.habitrpg.android.habitica.old.ui.activities.PrefsActivity;
+import com.habitrpg.android.habitica.old.ui.activities.SetupActivity;
+import com.habitrpg.android.habitica.old.ui.activities.SkillTasksActivity;
+import com.habitrpg.android.habitica.old.ui.activities.TaskFormActivity;
+import com.habitrpg.android.habitica.old.ui.fragments.GemsPurchaseFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.NewsFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.faq.FAQDetailFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.faq.FAQOverviewFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.customization.AvatarCustomizationFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.customization.AvatarOverviewFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.equipment.EquipmentDetailFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.equipment.EquipmentOverviewFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.items.ItemRecyclerFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.items.ItemsFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.shops.ShopFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.shops.ShopsFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.stable.MountDetailRecyclerFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.stable.PetDetailRecyclerFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.stable.StableFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.inventory.stable.StableRecyclerFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.preferences.PreferencesFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.setup.AvatarSetupFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.setup.IntroFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.setup.TaskSetupFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.skills.SkillTasksRecyclerViewFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.skills.SkillsFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.ChatListFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.GroupInformationFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.GuildFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.GuildsOverviewFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.InboxFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.InboxMessageListFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.PublicGuildsFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.TavernFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.party.PartyFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.party.PartyInviteFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.social.party.PartyMemberListFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.tasks.TaskRecyclerViewFragment;
+import com.habitrpg.android.habitica.old.ui.fragments.tasks.TasksFragment;
+import com.habitrpg.android.habitica.old.widget.UpdateWidgetService;
+import com.habitrpg.android.habitica.presentation.tasks.TaskListFragment;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 
 @Singleton
-@Component(modules = {AppModule.class, ApiModule.class})
+@Component(modules = {AppModule.class, ApiModule.class, RepositoryModule.class})
 public interface AppComponent {
     void inject(UpdateWidgetService target);
 
@@ -165,4 +167,6 @@ public interface AppComponent {
     void inject(LocalNotificationActionReceiver localNotificationActionReceiver);
 
     void inject(FullProfileActivity fullProfileActivity);
+
+    void inject(TaskListFragment taskListFragment);
 }
