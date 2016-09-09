@@ -48,9 +48,11 @@ public class GroupInformationFragment extends BaseFragment {
     RecyclerView collectionStats;
 
     @BindView(R.id.qrLayout)
+    @Nullable
     LinearLayout qrLayout;
 
     @BindView(R.id.qrWrapper)
+    @Nullable
     CardView qrWrapper;
 
     private View view;
@@ -104,10 +106,10 @@ public class GroupInformationFragment extends BaseFragment {
         if (this.group == null) {
             QrCodeManager qrCodeManager = new QrCodeManager(this.getContext());
             qrCodeManager.setUpView(qrLayout);
-        }
 
-        if (user != null && user.getParty().getId() != null) {
-            ((ViewGroup) qrWrapper.getParent()).removeView(qrWrapper);
+            if (user.getInvitations().getParty() != null && user.getInvitations().getParty().getId() != null) {
+                viewBinding.setInvitation(user.getInvitations().getParty());
+            }
         }
 
         return view;
@@ -311,5 +313,24 @@ public class GroupInformationFragment extends BaseFragment {
 
                 });
         builder.show();
+    }
+
+    @OnClick(R.id.btnPartyInviteAccept)
+    public void onPartyInviteAccepted() {
+        apiHelper.apiService.joinGroup(user.getInvitations().getParty().getId())
+                .compose(apiHelper.configureApiCallObserver())
+                .subscribe(group -> {
+                    setGroup(group);
+                    viewBinding.setInvitation(null);
+                }, throwable -> {});
+    }
+
+    @OnClick(R.id.btnPartyInviteReject)
+    public void onPartyInviteRejected() {
+        apiHelper.apiService.rejectGroupInvite(user.getInvitations().getParty().getId())
+                .compose(apiHelper.configureApiCallObserver())
+                .subscribe(aVoid -> {
+                    viewBinding.setInvitation(null);
+                }, throwable -> {});
     }
 }

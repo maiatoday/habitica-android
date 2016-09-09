@@ -44,6 +44,7 @@ public class PartyFragment extends BaseMainFragment {
 
     @Inject
     ContentCache contentCache;
+    private FragmentPagerAdapter viewPagerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,6 +96,8 @@ public class PartyFragment extends BaseMainFragment {
         this.tutorialStepIdentifier = "party";
         this.tutorialText = getString(R.string.tutorial_party);
 
+        updateGroupUI();
+
         return v;
     }
 
@@ -104,6 +107,15 @@ public class PartyFragment extends BaseMainFragment {
     }
 
     private void updateGroupUI() {
+        viewPagerAdapter.notifyDataSetChanged();
+
+        if (group == null) {
+            tabLayout.setVisibility(View.GONE);
+            return;
+        } else {
+            tabLayout.setVisibility(View.VISIBLE);
+        }
+
         if (partyMemberListFragment != null) {
             partyMemberListFragment.setMemberList(group.members);
         }
@@ -125,6 +137,7 @@ public class PartyFragment extends BaseMainFragment {
                 }
             });
         }
+
     }
 
     @Override
@@ -255,7 +268,7 @@ public class PartyFragment extends BaseMainFragment {
             return;
         }
 
-        this.viewPager.setAdapter(new FragmentPagerAdapter(fragmentManager) {
+        viewPagerAdapter = new FragmentPagerAdapter(fragmentManager) {
 
             @Override
             public Fragment getItem(int position) {
@@ -293,7 +306,11 @@ public class PartyFragment extends BaseMainFragment {
 
             @Override
             public int getCount() {
-                return 3;
+                if (group == null) {
+                    return 1;
+                } else {
+                    return 3;
+                }
             }
 
             @Override
@@ -308,7 +325,8 @@ public class PartyFragment extends BaseMainFragment {
                 }
                 return "";
             }
-        });
+        };
+        this.viewPager.setAdapter(viewPagerAdapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

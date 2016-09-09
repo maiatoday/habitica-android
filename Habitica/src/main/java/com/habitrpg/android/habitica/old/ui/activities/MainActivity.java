@@ -43,6 +43,7 @@ import com.habitrpg.android.habitica.old.ui.helpers.DataBindingUtils;
 import com.habitrpg.android.habitica.old.ui.helpers.UiUtils;
 import com.habitrpg.android.habitica.old.ui.menu.MainDrawerBuilder;
 import com.habitrpg.android.habitica.old.userpicture.BitmapUtils;
+import com.habitrpg.android.habitica.events.ToggledEditTagsEvent;
 import com.magicmicky.habitrpgwrapper.lib.api.MaintenanceApiService;
 import com.magicmicky.habitrpgwrapper.lib.models.HabitRPGUser;
 import com.magicmicky.habitrpgwrapper.lib.models.Preferences;
@@ -812,6 +813,7 @@ public class MainActivity extends BaseActivity implements Action1<Throwable>, Ha
             drawer.closeDrawer();
         } else if (drawer.getDrawerLayout().isDrawerOpen(GravityCompat.END)) {
             drawer.getDrawerLayout().closeDrawer(GravityCompat.END);
+            EventBus.getDefault().post(new ToggledEditTagsEvent(false));
         } else {
             super.onBackPressed();
             if (this.activeFragment != null) {
@@ -1503,6 +1505,7 @@ public class MainActivity extends BaseActivity implements Action1<Throwable>, Ha
             drawer = this.filterDrawer;
         }
         if (drawer != null) {
+            EventBus.getDefault().post(new ToggledEditTagsEvent(false));
             drawer.openDrawer();
         }
     }
@@ -1533,5 +1536,14 @@ public class MainActivity extends BaseActivity implements Action1<Throwable>, Ha
         intent.putExtras(bundle);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
+    }
+
+    public void removeFilterDrawerItem(int position) {
+        this.filterDrawer.removeItemByPosition(position);
+    }
+
+    public void updateFilterDrawerItem (IDrawerItem item, int position) {
+        this.filterDrawer.removeItemByPosition(position);
+        this.filterDrawer.addItemAtPosition(item,position);
     }
 }
