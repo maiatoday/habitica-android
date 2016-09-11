@@ -1,4 +1,4 @@
-package com.habitrpg.android.habitica.events.commands;
+package com.habitrpg.android.habitica.old.events.commands;
 
 import com.magicmicky.habitrpgwrapper.lib.models.Tag;
 

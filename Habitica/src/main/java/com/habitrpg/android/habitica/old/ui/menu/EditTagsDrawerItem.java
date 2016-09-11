@@ -1,8 +1,8 @@
-package com.habitrpg.android.habitica.ui.menu;
+package com.habitrpg.android.habitica.old.ui.menu;
 
 import com.habitrpg.android.habitica.R;
-import com.habitrpg.android.habitica.events.commands.EditTagCommand;
-import com.habitrpg.android.habitica.ui.helpers.ViewHelper;
+import com.habitrpg.android.habitica.old.events.commands.EditTagCommand;
+import com.habitrpg.android.habitica.old.ui.helpers.ViewHelper;
 import com.magicmicky.habitrpgwrapper.lib.models.Tag;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
@@ -19,6 +19,8 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * Created by jjbillings on 8/12/16.
@@ -56,6 +58,11 @@ public class EditTagsDrawerItem extends BasePrimaryDrawerItem<EditTagsDrawerItem
     @LayoutRes
     public int getLayoutRes() {
         return R.layout.edit_tags_drawer_item;
+    }
+
+    @Override
+    public void bindView(ViewHolder viewHolder, List list) {
+
     }
 
     @Override

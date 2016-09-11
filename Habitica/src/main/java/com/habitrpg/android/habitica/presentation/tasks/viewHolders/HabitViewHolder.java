@@ -1,8 +1,8 @@
-package com.habitrpg.android.habitica.old.ui.viewHolders.tasks;
+package com.habitrpg.android.habitica.presentation.tasks.viewHolders;
 
 import com.habitrpg.android.habitica.R;
+import com.habitrpg.android.habitica.models.Task;
 import com.habitrpg.android.habitica.old.events.HabitScoreEvent;
-import com.magicmicky.habitrpgwrapper.lib.models.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -54,17 +54,9 @@ public class HabitViewHolder extends BaseTaskViewHolder {
 
     @OnClick(R.id.btnPlus)
     public void onPlusButtonClicked() {
-        HabitScoreEvent event = new HabitScoreEvent();
-        event.Up = true;
-        event.habit = task;
-        EventBus.getDefault().post(event);
     }
 
     @OnClick(R.id.btnMinus)
     public void onMinusButtonClicked() {
-        HabitScoreEvent event = new HabitScoreEvent();
-        event.Up = false;
-        event.habit = task;
-        EventBus.getDefault().post(event);
     }
 }

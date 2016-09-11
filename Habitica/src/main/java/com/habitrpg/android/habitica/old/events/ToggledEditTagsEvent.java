@@ -1,4 +1,4 @@
-package com.habitrpg.android.habitica.events;
+package com.habitrpg.android.habitica.old.events;
 
 /**
  * Created by jjbillings on 8/11/16.

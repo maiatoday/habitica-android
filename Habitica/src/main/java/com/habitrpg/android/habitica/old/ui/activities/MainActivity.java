@@ -43,7 +43,7 @@ import com.habitrpg.android.habitica.old.ui.helpers.DataBindingUtils;
 import com.habitrpg.android.habitica.old.ui.helpers.UiUtils;
 import com.habitrpg.android.habitica.old.ui.menu.MainDrawerBuilder;
 import com.habitrpg.android.habitica.old.userpicture.BitmapUtils;
-import com.habitrpg.android.habitica.events.ToggledEditTagsEvent;
+import com.habitrpg.android.habitica.old.events.ToggledEditTagsEvent;
 import com.magicmicky.habitrpgwrapper.lib.api.MaintenanceApiService;
 import com.magicmicky.habitrpgwrapper.lib.models.HabitRPGUser;
 import com.magicmicky.habitrpgwrapper.lib.models.Preferences;

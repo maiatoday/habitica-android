@@ -1,5 +1,7 @@
 package com.habitrpg.android.habitica.modules;
 
+import com.google.gson.Gson;
+import com.habitrpg.android.habitica.network.ApiClient;
 import com.habitrpg.android.habitica.old.APIHelper;
 import com.habitrpg.android.habitica.old.ContentCache;
 import com.habitrpg.android.habitica.old.HostConfig;
@@ -27,7 +29,7 @@ public class ApiModule {
 
     @Provides
     public GsonConverterFactory providesGsonConverterFactory() {
-        return APIHelper.createGsonFactory();
+        return ApiClient.createGsonFactory();
     }
 
     @Provides
@@ -50,5 +52,11 @@ public class ApiModule {
                 .addConverterFactory(gsonConverter)
                 .build();
         return adapter.create(MaintenanceApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    public ApiClient providesApiClient(GsonConverterFactory gsonConverterFactory, HostConfig hostConfig) {
+        return new ApiClient(gsonConverterFactory, hostConfig);
     }
 }

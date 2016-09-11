@@ -6,6 +6,7 @@ import com.habitrpg.android.habitica.models.Task;
 import com.habitrpg.android.habitica.presentation.base.BaseFragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,23 +20,17 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class TaskListFragment extends BaseFragment<TaskListPresenter> implements TaskListView {
+public class TaskListFragment extends BaseFragment<List<Task>, TaskListView, TaskListPresenter> implements TaskListView {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    @Inject
-    public TaskListPresenter presenter;
     public String taskType;
     public TasksRecyclerViewAdapter recyclerAdapter;
 
     @Override
     public void injectFragment(AppComponent component) {
         component.inject(this);
-    }
-
-    public TaskListPresenter getPresenter() {
-        return this.presenter;
     }
 
     @Override
@@ -54,32 +49,31 @@ public class TaskListFragment extends BaseFragment<TaskListPresenter> implements
             recyclerView.setLayoutManager(layoutManager);
         }
 
+        this.presenter.taskType = this.taskType;
+
         return rootView;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState == null) {
-            this.loadTaskList();
-        }
-    }
-
-    private void loadTaskList() {
-        this.presenter.loadTaskList();
+    protected String getErrorMessage(Throwable e, boolean pullToRefresh) {
+        return null;
     }
 
     @Override
-    public void onRefresh() {
-        this.getPresenter().loadTaskList();
-    }
-
-    @Override
-    public void showTasks(List<Task> tasks) {
+    public void setData(List<Task> tasks) {
         if (recyclerAdapter == null) {
-            recyclerAdapter = new TasksRecyclerViewAdapter(getContext(), tasks, true);
+            recyclerAdapter = new TasksRecyclerViewAdapter(getContext(), tasks, true, 0);
         }
         recyclerView.setAdapter(recyclerAdapter);
         showContent();
+    }
+
+    @Override
+    public void loadData(boolean pullToRefresh) {
+        if (pullToRefresh) {
+            this.presenter.reload();
+        } else {
+            this.presenter.loadTaskList();
+        }
     }
 }

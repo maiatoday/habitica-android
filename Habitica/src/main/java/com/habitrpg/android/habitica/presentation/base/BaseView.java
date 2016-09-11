@@ -1,13 +1,7 @@
 package com.habitrpg.android.habitica.presentation.base;
 
-public interface BaseView {
+import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
 
-    void showLoading();
-
-    void hideLoading();
-
-    void showError(String errorText);
-
-    void showContent();
+public interface BaseView<M>  extends MvpLceView<M> {
 
 }

@@ -1,6 +1,6 @@
-package com.habitrpg.android.habitica.ui.menu;
+package com.habitrpg.android.habitica.old.ui.menu;
 
-import com.habitrpg.android.habitica.ui.helpers.ViewHelper;
+import com.habitrpg.android.habitica.old.ui.helpers.ViewHelper;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
@@ -10,7 +10,7 @@ import com.mikepenz.materialdrawer.model.interfaces.Typefaceable;
 import com.mikepenz.materialize.util.UIUtils;
 
 import com.habitrpg.android.habitica.R;
-import com.habitrpg.android.habitica.events.ToggledEditTagsEvent;
+import com.habitrpg.android.habitica.old.events.ToggledEditTagsEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,6 +23,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * Created by jjbillings on 8/12/16.
@@ -108,6 +110,11 @@ public class EditTagsSectionDrawer extends AbstractDrawerItem<EditTagsSectionDra
     @LayoutRes
     public int getLayoutRes() {
         return R.layout.edit_tags_section_drawer_item;
+    }
+
+    @Override
+    public void bindView(ViewHolder viewHolder, List list) {
+
     }
 
     @Override

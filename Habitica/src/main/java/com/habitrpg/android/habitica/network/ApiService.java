@@ -1,8 +1,10 @@
 package com.habitrpg.android.habitica.network;
 
 import com.habitrpg.android.habitica.models.Task;
+import com.habitrpg.android.habitica.models.User;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -10,14 +12,19 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import rx.Observable;
 
-
-/**
- * Created by MagicMicky on 10/06/2014.
- */
 public interface ApiService {
+
+    // User
+
+    @GET("user/")
+    Observable<User> getUser();
+
+    @PUT("user/")
+    Observable<User> updateUser(@Body Map<String, Object> updateDictionary);
+
+    // Tasks
 
     @GET("tasks/user")
     Observable<List<Task>> getTasks();
@@ -32,7 +39,7 @@ public interface ApiService {
     Observable<Task> scoreChecklistItem(@Path("taskId") String taskId, @Path("itemId") String itemId);
 
     @POST("tasks/user")
-    Observable<Task> createItem(@Body Task item);
+    Observable<Task> createTask(@Body Task item);
 
     @POST("tasks/user")
     Observable<List<Task>> createTasks(@Body List<Task> tasks);

@@ -1,11 +1,5 @@
 package com.habitrpg.android.habitica.presentation.main;
 
-import com.habitrpg.android.habitica.R;
-import com.habitrpg.android.habitica.components.AppComponent;
-import com.habitrpg.android.habitica.models.Task;
-import com.habitrpg.android.habitica.presentation.base.BaseActivity;
-import com.habitrpg.android.habitica.presentation.tasks.TaskListFragment;
-
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,20 +7,37 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import com.habitrpg.android.habitica.HabiticaApplication;
+import com.habitrpg.android.habitica.R;
+import com.habitrpg.android.habitica.components.AppComponent;
+import com.habitrpg.android.habitica.models.Task;
+import com.habitrpg.android.habitica.network.ApiClient;
+import com.habitrpg.android.habitica.presentation.base.BaseActivity;
+import com.habitrpg.android.habitica.presentation.header.HeaderView;
+import com.habitrpg.android.habitica.presentation.tasks.TaskListFragment;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import io.realm.Realm;
 
 public class MainActivity extends BaseActivity {
-    private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     @BindView(R.id.container)
     public ViewPager mViewPager;
+
+    @BindView(R.id.header_view)
+    public HeaderView headerView;
+
+    @Inject
+    ApiClient apiClient;
+
+    @Inject
+    Realm realm;
 
     @Override
     protected int getLayoutResId() {
@@ -37,27 +48,38 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (!HabiticaApplication.checkUserAuthentication(this, apiClient.hostConfig)) {
+            return;
+        }
+
+        this.headerView.setUp(getHabiticaApplication().getComponent());
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ButterKnife.bind(this);
-
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(sectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.detail_tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
+        apiClient.getUserTasks().subscribe(tasks -> {
+            realm.executeTransactionAsync(realm1 -> realm1.insertOrUpdate(tasks));
+        }, throwable -> {});
+        apiClient.getUser().subscribe(user -> {
+            realm.executeTransactionAsync(realm1 -> {
+                realm1.insertOrUpdate(user);
+            });
+        }, throwable -> {});
     }
 
     @Override
     protected void injectActivity(AppComponent component) {
-
+        component.inject(this);
     }
 
     /**
@@ -86,6 +108,9 @@ public class MainActivity extends BaseActivity {
                 case 2:
                     fragment.taskType = Task.TYPE_TODO;
                     break;
+                case 3:
+                    fragment.taskType = Task.TYPE_REWARD;
+                    break;
             }
 
             return fragment;
@@ -94,7 +119,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
@@ -105,6 +130,8 @@ public class MainActivity extends BaseActivity {
                 case 1:
                     return "Dailies";
                 case 2:
+                    return "To-Dos";
+                case 3:
                     return "To-Dos";
             }
             return null;

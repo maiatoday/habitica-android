@@ -5,7 +5,7 @@ import android.content.Context;
 import com.habitrpg.android.habitica.old.helpers.TagsHelper;
 import com.habitrpg.android.habitica.old.ui.helpers.ItemTouchHelperAdapter;
 import com.habitrpg.android.habitica.old.ui.helpers.ItemTouchHelperDropCallback;
-import com.habitrpg.android.habitica.old.ui.viewHolders.tasks.BaseTaskViewHolder;
+import com.habitrpg.android.habitica.presentation.tasks.viewHolders.BaseTaskViewHolder;
 import com.magicmicky.habitrpgwrapper.lib.models.tasks.Task;
 
 import java.util.Collections;
@@ -42,7 +42,6 @@ public abstract class SortableTasksRecyclerViewAdapter<VH extends BaseTaskViewHo
     @Override
     public void onDrop(int from, int to) {
         if (this.sortCallback != null && from != to){
-            this.sortCallback.onMove(filteredContent.get(to), from, to);
         }
     }
 }

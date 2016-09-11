@@ -4,7 +4,7 @@ import com.habitrpg.android.habitica.old.APIHelper;
 import com.habitrpg.android.habitica.old.ContentCache;
 import com.habitrpg.android.habitica.R;
 import com.habitrpg.android.habitica.old.helpers.TagsHelper;
-import com.habitrpg.android.habitica.old.ui.viewHolders.tasks.RewardViewHolder;
+import com.habitrpg.android.habitica.presentation.tasks.viewHolders.RewardViewHolder;
 import com.magicmicky.habitrpgwrapper.lib.models.HabitRPGUser;
 import com.magicmicky.habitrpgwrapper.lib.models.tasks.ItemData;
 import com.magicmicky.habitrpgwrapper.lib.models.tasks.Task;
@@ -84,16 +84,8 @@ public class RewardsRecyclerViewAdapter extends BaseTasksRecyclerViewAdapter<Rew
                     })
                     .compose(apiHelper.configureApiCallObserver())
                     .subscribe(items -> {
-                        this.filteredContent.addAll(items);
                         notifyDataSetChanged();
                     }, throwable -> {
                     });
         }
-    }
-
-    @Override
-    public void setTasks(List<Task> tasks) {
-        super.setTasks(tasks);
-        this.loadEquipmentRewards();
-    }
-}
+    }}

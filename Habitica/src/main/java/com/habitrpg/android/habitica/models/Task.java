@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.realm.RealmList;
 import io.realm.RealmModel;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
 
@@ -72,6 +73,11 @@ public class Task implements RealmModel {
 
     // used for buyable items
     public String specialTag;
+
+    @Ignore
+    public CharSequence parsedText;
+    @Ignore
+    public CharSequence parsedNotes;
 
     /**
      * @return the id
@@ -374,5 +380,19 @@ public class Task implements RealmModel {
 
     public Boolean isDisplayedActive(int offset) {
         return this.isDue(offset) && !this.completed;
+    }
+
+    public Boolean isChecklistDisplayActive(int offset) {
+        return this.isDisplayedActive(offset) && (this.checklist.size() != this.getCompletedChecklistCount());
+    }
+
+    public Integer getCompletedChecklistCount() {
+        Integer count = 0;
+        for (ChecklistItem item : this.getChecklist()) {
+            if (item.isCompleted()) {
+                count++;
+            }
+        }
+        return count;
     }
 }

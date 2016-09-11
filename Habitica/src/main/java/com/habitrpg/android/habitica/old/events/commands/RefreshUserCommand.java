@@ -1,4 +1,4 @@
-package com.habitrpg.android.habitica.events.commands;
+package com.habitrpg.android.habitica.old.events.commands;
 
 /**
  * Created by jbillz on 8/19/16.

@@ -1,57 +1,90 @@
 package com.habitrpg.android.habitica.presentation.tasks;
 
-import com.habitrpg.android.habitica.R;
-import com.habitrpg.android.habitica.models.Task;
-
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.habitrpg.android.habitica.R;
+import com.habitrpg.android.habitica.models.Task;
+import com.habitrpg.android.habitica.presentation.tasks.viewHolders.BaseTaskViewHolder;
+import com.habitrpg.android.habitica.presentation.tasks.viewHolders.DailyViewHolder;
+import com.habitrpg.android.habitica.presentation.tasks.viewHolders.HabitViewHolder;
+import com.habitrpg.android.habitica.presentation.tasks.viewHolders.RewardViewHolder;
+import com.habitrpg.android.habitica.presentation.tasks.viewHolders.TodoViewHolder;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 
-public class TasksRecyclerViewAdapter extends RealmRecyclerViewAdapter<Task, TasksRecyclerViewAdapter.TaskAdapter> {
+public class TasksRecyclerViewAdapter extends RealmRecyclerViewAdapter<Task, BaseTaskViewHolder> {
 
-    public TasksRecyclerViewAdapter(Context context, List<Task> data, boolean autoUpdate) {
+    private static final int VIEWTYPE_HABIT = 0;
+    private static final int VIEWTYPE_DAILIES = 1;
+    private static final int VIEWTYPE_TODOS = 2;
+    private static final int VIEWTYPE_REWARDS = 3;
+    private final int dailyOffset;
+
+    public TasksRecyclerViewAdapter(Context context, List<Task> data, boolean autoUpdate, int dailyOffset) {
         super(context, (OrderedRealmCollection<Task>) data, autoUpdate);
+        this.dailyOffset = dailyOffset;
     }
 
     @Override
-    public TaskAdapter onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new TaskAdapter(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false));
+    public BaseTaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(getLayoutResource(viewType), parent, false);
+        switch (viewType) {
+            case VIEWTYPE_HABIT:
+                return new HabitViewHolder(view);
+            case VIEWTYPE_DAILIES:
+                return new DailyViewHolder(view, dailyOffset);
+            case VIEWTYPE_TODOS:
+                return new TodoViewHolder(view);
+            case VIEWTYPE_REWARDS:
+                return new RewardViewHolder(view);
+            default:
+                return null;
+        }
+    }
+
+    private int getLayoutResource(int viewType) {
+        switch (viewType) {
+            case VIEWTYPE_HABIT:
+                return R.layout.habit_item_card;
+            case VIEWTYPE_DAILIES:
+                return R.layout.daily_item_card;
+            case VIEWTYPE_TODOS:
+                return R.layout.todo_item_card;
+            case VIEWTYPE_REWARDS:
+                return R.layout.reward_item_card;
+            default:
+                return 0;
+        }
     }
 
     @Override
-    public void onBindViewHolder(TaskAdapter holder, int position) {
-        holder.setTask(getData().get(position));
+    public int getItemViewType(int position) {
+        if (getData() != null) {
+            Task task = getData().get(position);
+            switch (task.getType()) {
+                case Task.TYPE_HABIT:
+                    return VIEWTYPE_HABIT;
+                case Task.TYPE_DAILY:
+                    return VIEWTYPE_DAILIES;
+                case Task.TYPE_TODO:
+                    return VIEWTYPE_TODOS;
+                case Task.TYPE_REWARD:
+                    return VIEWTYPE_REWARDS;
+            }
+        }
+        return -1;
     }
 
-    public static class TaskAdapter extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.textView)
-        public TextView textView;
-        @BindView(R.id.notesTextView)
-        public TextView notesTextView;
-        @BindView(R.id.valueTextView)
-        public TextView valueTextView;
-
-        public TaskAdapter(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+    @Override
+    public void onBindViewHolder(BaseTaskViewHolder holder, int position) {
+        if (getData() != null) {
+            holder.bindHolder(getData().get(position), position);
         }
-
-        public void setTask(Task task) {
-            textView.setText(task.getText());
-            notesTextView.setText(task.getNotes());
-            valueTextView.setText(String.valueOf(task.getValue()));
-        }
-
     }
 }

@@ -16,6 +16,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Created by mikepenz on 03.02.15.
  */
@@ -67,6 +69,11 @@ public class SectionIconDrawerItem extends AbstractDrawerItem<SectionIconDrawerI
     @LayoutRes
     public int getLayoutRes() {
         return R.layout.material_drawer_item_section_icon;
+    }
+
+    @Override
+    public void bindView(ViewHolder viewHolder, List list) {
+
     }
 
     @Override

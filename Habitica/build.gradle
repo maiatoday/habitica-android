@@ -3,10 +3,9 @@ apply plugin: 'com.android.databinding'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'realm-android'
-apply plugin: 'com.getkeepsafe.dexcount'
+// apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.jakewharton.hugo'
-apply plugin: 'com.google.gms.google-services'
 
 buildscript {
     repositories {
@@ -17,7 +16,7 @@ buildscript {
     dependencies {
         classpath 'io.fabric.tools:gradle:1.21.5'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.4.4'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
@@ -60,20 +59,20 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 
     //Crash Logging
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.0@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
         transitive = true;
     }
 
     // View Elements Binding :)
-    compile 'com.jakewharton:butterknife:8.2.1'
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
     //Dependency Injection
-    compile 'com.google.dagger:dagger:2.5'
-    apt 'com.google.dagger:dagger-compiler:2.5'
+    compile 'com.google.dagger:dagger:2.6.1'
+    apt 'com.google.dagger:dagger-compiler:2.6.1'
     provided 'org.glassfish:javax.annotation:10.0-b28'
     //App Compatibility and Material Design
-    compile('com.mikepenz:materialdrawer:5.3.6@aar') {
+    compile('com.mikepenz:materialdrawer:5.3.5@aar') {
         transitive = true
     }
     compile 'com.android.support:appcompat-v7:24.2.0'
@@ -96,7 +95,7 @@ dependencies {
     compile 'com.commonsware.cwac:anddown:0.2.4'
 
     // About View for all dependent Libraries, we are using
-    compile('com.mikepenz:aboutlibraries:5.7.1@aar') {
+    compile('com.mikepenz:aboutlibraries:5.8.1@aar') {
         transitive = true
     }
 
@@ -129,10 +128,10 @@ dependencies {
     compile 'com.amplitude:android-sdk:2.9.2'
 
     // Fresco Image Management Library
-    compile('com.facebook.fresco:fresco:0.11.0') {
+    compile('com.facebook.fresco:fresco:0.13.0') {
         exclude module: 'bolts-android'
     }
-    compile('com.facebook.fresco:animated-gif:0.11.0') {
+    compile('com.facebook.fresco:animated-gif:0.13.0') {
         exclude module: 'bolts-android'
     }
     //Tests
@@ -144,7 +143,10 @@ dependencies {
     testCompile "org.robolectric:shadows-support-v4:3.1"
     testCompile "org.mockito:mockito-core:1.10.19"
 
-    compile 'io.realm:android-adapters:1.2.2'
+    compile 'io.realm:android-adapters:1.3.0'
+
+    compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
+    compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
 
     //Leak Detection
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
@@ -155,11 +157,22 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.4.0'
 
     compile 'com.google.android.gms:play-services-auth:9.4.0'
+    compile 'com.google.android.gms:play-services-appindexing:9.4.0'
 }
 
 android {
+
+    productFlavors {
+        dev {
+            targetSdkVersion 21
+        }
+        prod {
+            targetSdkVersion 15
+        }
+    }
+
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         applicationId "com.habitrpg.android.habitica"
@@ -219,8 +232,7 @@ android {
     
     dexOptions {
         preDexLibraries false
-        javaMaxHeapSize "4g" // Use gig increments depending on needs
-        incremental true
+        javaMaxHeapSize "6g" // Use gig increments depending on needs
     }
 
     lintOptions {
@@ -291,3 +303,5 @@ tasks.whenTaskAdded { task ->
         task.enabled = false
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

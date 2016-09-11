@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,6 +28,11 @@ public class EditTextDrawer extends BasePrimaryDrawerItem<EditTextDrawer, EditTe
     @Override
     public int getLayoutRes() {
         return R.layout.edit_text_drawer_item;
+    }
+
+    @Override
+    public void bindView(ViewHolder holder, List payloads) {
+
     }
 
     @Override

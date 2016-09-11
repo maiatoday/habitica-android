@@ -5,7 +5,6 @@ import com.habitrpg.android.habitica.presentation.base.BaseView;
 
 import java.util.List;
 
-public interface TaskListView extends BaseView {
+public interface TaskListView extends BaseView<List<Task>> {
 
-    void showTasks(List<Task> tasks);
 }

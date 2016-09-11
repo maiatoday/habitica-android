@@ -31,8 +31,8 @@
                 app:expandedTitleMarginStart="0dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <com.habitrpg.android.habitica.views.HeaderView
-                    android:id="@+id/avatar_with_bars"
+            <com.habitrpg.android.habitica.presentation.header.HeaderView
+                    android:id="@+id/header_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="?attr/actionBarSize"

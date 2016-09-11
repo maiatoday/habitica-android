@@ -29,11 +29,11 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.habitrpg.android.habitica.HabiticaApplication;
 import com.habitrpg.android.habitica.R;
 import com.habitrpg.android.habitica.components.AppComponent;
-import com.habitrpg.android.habitica.events.ToggledEditTagsEvent;
-import com.habitrpg.android.habitica.events.commands.DeleteTagCommand;
-import com.habitrpg.android.habitica.events.commands.EditTagCommand;
-import com.habitrpg.android.habitica.events.commands.RefreshUserCommand;
-import com.habitrpg.android.habitica.events.commands.UpdateTagCommand;
+import com.habitrpg.android.habitica.old.events.ToggledEditTagsEvent;
+import com.habitrpg.android.habitica.old.events.commands.DeleteTagCommand;
+import com.habitrpg.android.habitica.old.events.commands.EditTagCommand;
+import com.habitrpg.android.habitica.old.events.commands.RefreshUserCommand;
+import com.habitrpg.android.habitica.old.events.commands.UpdateTagCommand;
 import com.habitrpg.android.habitica.old.callbacks.HabitRPGUserCallback;
 import com.habitrpg.android.habitica.old.callbacks.TaskCreationCallback;
 import com.habitrpg.android.habitica.old.callbacks.TaskScoringCallback;
@@ -58,8 +58,8 @@ import com.habitrpg.android.habitica.old.ui.helpers.Debounce;
 import com.habitrpg.android.habitica.old.ui.helpers.UiUtils;
 import com.habitrpg.android.habitica.old.ui.menu.EditTextDrawer;
 import com.habitrpg.android.habitica.old.ui.helpers.ViewHelper;
-import com.habitrpg.android.habitica.ui.menu.EditTagsDrawerItem;
-import com.habitrpg.android.habitica.ui.menu.EditTagsSectionDrawer;
+import com.habitrpg.android.habitica.old.ui.menu.EditTagsDrawerItem;
+import com.habitrpg.android.habitica.old.ui.menu.EditTagsSectionDrawer;
 import com.magicmicky.habitrpgwrapper.lib.models.HabitRPGUser;
 import com.magicmicky.habitrpgwrapper.lib.models.Tag;
 import com.magicmicky.habitrpgwrapper.lib.models.TaskDirection;
@@ -287,7 +287,6 @@ public class TasksFragment extends BaseMainFragment implements OnCheckedChangeLi
                         final DailiesRecyclerViewHolder dailyAdapter = (DailiesRecyclerViewHolder) fragm.recyclerAdapter;
                         dailyAdapter.dailyResetOffset = this.user.getPreferences().getDayStart();
                     }
-                    AsyncTask.execute(() -> adapter.loadContent(true));
                 }
             }
         }

@@ -1,10 +1,10 @@
-package com.habitrpg.android.habitica.old.ui.viewHolders.tasks;
+package com.habitrpg.android.habitica.presentation.tasks.viewHolders;
 
 import com.habitrpg.android.habitica.R;
+import com.habitrpg.android.habitica.models.ChecklistItem;
+import com.habitrpg.android.habitica.models.Task;
 import com.habitrpg.android.habitica.old.events.commands.ChecklistCheckedCommand;
 import com.habitrpg.android.habitica.old.events.commands.TaskCheckedCommand;
-import com.magicmicky.habitrpgwrapper.lib.models.tasks.ChecklistItem;
-import com.magicmicky.habitrpgwrapper.lib.models.tasks.Task;
 
 import net.pherth.android.emoji_library.EmojiTextView;
 
@@ -95,7 +95,7 @@ public abstract class ChecklistedViewHolder extends BaseTaskViewHolder implement
                     EmojiTextView textView = (EmojiTextView) itemView.findViewById(R.id.checkedTextView);
                     // Populate the data into the template view using the data object
                     textView.setText(item.getText());
-                    checkbox.setChecked(item.getCompleted());
+                    checkbox.setChecked(item.isCompleted());
                     checkbox.setOnCheckedChangeListener(this);
                     RelativeLayout checkboxHolder = (RelativeLayout) itemView.findViewById(R.id.checkBoxHolder);
                     expandCheckboxTouchArea(checkboxHolder, checkbox);
@@ -139,15 +139,7 @@ public abstract class ChecklistedViewHolder extends BaseTaskViewHolder implement
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == checkbox) {
             if (isChecked != task.getCompleted()) {
-                TaskCheckedCommand event = new TaskCheckedCommand();
-                event.Task = task;
-                event.completed = !task.getCompleted();
 
-                // it needs to be changed after the event is send -> to the server
-                // maybe a refactor is needed here
-                EventBus.getDefault().post(event);
-                task.completed = event.completed;
-                task.save();
             }
         } else {
             View v = (View) buttonView.getParent();
@@ -155,11 +147,8 @@ public abstract class ChecklistedViewHolder extends BaseTaskViewHolder implement
                 v = (View) v.getParent();
             }
             Integer position = ((ViewGroup) v.getParent()).indexOfChild(v);
-            if (task.checklist.size() > position && isChecked != task.checklist.get(position).getCompleted()) {
-                ChecklistCheckedCommand event = new ChecklistCheckedCommand();
-                event.task = task;
-                event.item = task.getChecklist().get(position);
-                EventBus.getDefault().post(event);
+            if (task.checklist.size() > position && isChecked != task.checklist.get(position).isCompleted()) {
+
             }
         }
     }

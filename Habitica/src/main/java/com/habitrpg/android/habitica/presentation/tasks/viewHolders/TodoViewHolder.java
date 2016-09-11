@@ -1,7 +1,7 @@
-package com.habitrpg.android.habitica.old.ui.viewHolders.tasks;
+package com.habitrpg.android.habitica.presentation.tasks.viewHolders;
 
 import com.habitrpg.android.habitica.R;
-import com.magicmicky.habitrpgwrapper.lib.models.tasks.Task;
+import com.habitrpg.android.habitica.models.Task;
 
 import android.view.View;
 import android.widget.TextView;

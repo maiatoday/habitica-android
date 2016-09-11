@@ -1,11 +1,11 @@
-package com.habitrpg.android.habitica.old.ui.viewHolders.tasks;
+package com.habitrpg.android.habitica.presentation.tasks.viewHolders;
 
 import com.habitrpg.android.habitica.R;
+import com.habitrpg.android.habitica.models.Task;
 import com.habitrpg.android.habitica.old.events.TaskTappedEvent;
 import com.habitrpg.android.habitica.old.events.commands.BuyRewardCommand;
 import com.habitrpg.android.habitica.old.ui.ItemDetailDialog;
 import com.habitrpg.android.habitica.old.ui.helpers.DataBindingUtils;
-import com.magicmicky.habitrpgwrapper.lib.models.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -58,9 +58,6 @@ public class RewardViewHolder extends BaseTaskViewHolder {
 
     @OnClick(R.id.btnReward)
     public void buyReward() {
-        BuyRewardCommand event = new BuyRewardCommand();
-        event.Reward = task;
-        EventBus.getDefault().post(event);
     }
 
     @Override
@@ -77,10 +74,6 @@ public class RewardViewHolder extends BaseTaskViewHolder {
             });
             dialog.show();
         } else {
-            TaskTappedEvent event = new TaskTappedEvent();
-            event.Task = task;
-
-            EventBus.getDefault().post(event);
         }
     }
 

@@ -15,9 +15,10 @@ public class ListTasksUseCase extends UseCase {
     public String taskType;
 
     @Inject
-    public ListTasksUseCase(TaskRepository taskRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    public ListTasksUseCase(TaskRepository taskRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, String taskType) {
         super(threadExecutor, postExecutionThread);
         this.taskRepository = taskRepository;
+        this.taskType = taskType;
     }
 
     @Override

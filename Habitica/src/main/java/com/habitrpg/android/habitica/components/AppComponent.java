@@ -55,6 +55,7 @@ import com.habitrpg.android.habitica.old.ui.fragments.social.party.PartyMemberLi
 import com.habitrpg.android.habitica.old.ui.fragments.tasks.TaskRecyclerViewFragment;
 import com.habitrpg.android.habitica.old.ui.fragments.tasks.TasksFragment;
 import com.habitrpg.android.habitica.old.widget.UpdateWidgetService;
+import com.habitrpg.android.habitica.presentation.header.HeaderView;
 import com.habitrpg.android.habitica.presentation.tasks.TaskListFragment;
 
 import javax.inject.Singleton;
@@ -169,4 +170,8 @@ public interface AppComponent {
     void inject(FullProfileActivity fullProfileActivity);
 
     void inject(TaskListFragment taskListFragment);
+
+    void inject(com.habitrpg.android.habitica.presentation.main.MainActivity mainActivity);
+
+    void inject(HeaderView headerView);
 }

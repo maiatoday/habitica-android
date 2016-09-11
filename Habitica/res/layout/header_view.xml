@@ -34,14 +34,12 @@
             <com.habitrpg.android.habitica.views.ValueBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/xpBar"
-                    layout="@layout/value_bar" />
+                    android:id="@+id/xpBar" />
 
             <com.habitrpg.android.habitica.views.ValueBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/mpBar"
-                    layout="@layout/value_bar" />
+                    android:id="@+id/mpBar" />
 
         </LinearLayout>
     </LinearLayout>

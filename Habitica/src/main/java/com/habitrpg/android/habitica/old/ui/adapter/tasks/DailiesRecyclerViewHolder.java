@@ -1,7 +1,7 @@
 package com.habitrpg.android.habitica.old.ui.adapter.tasks;
 
 import com.habitrpg.android.habitica.old.helpers.TagsHelper;
-import com.habitrpg.android.habitica.old.ui.viewHolders.tasks.DailyViewHolder;
+import com.habitrpg.android.habitica.presentation.tasks.viewHolders.DailyViewHolder;
 
 import android.content.Context;
 import android.view.ViewGroup;
