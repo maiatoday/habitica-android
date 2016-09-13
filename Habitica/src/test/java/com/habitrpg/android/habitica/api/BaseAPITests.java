@@ -4,6 +4,7 @@ package com.habitrpg.android.habitica.api;
 import com.habitrpg.android.habitica.old.APIHelper;
 import com.habitrpg.android.habitica.BuildConfig;
 import com.habitrpg.android.habitica.old.HostConfig;
+import com.magicmicky.habitrpgwrapper.lib.models.HabitRPGUser;
 import com.magicmicky.habitrpgwrapper.lib.models.UserAuthResponse;
 
 import org.junit.After;
@@ -11,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Before;
 
 import java.security.InvalidParameterException;
+import java.util.List;
 import java.util.UUID;
 
 import rx.observers.TestSubscriber;

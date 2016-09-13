@@ -10,6 +10,8 @@ import com.habitrpg.android.habitica.models.User;
 
 public class HeaderUserViewModel {
 
+    User user;
+
     private final Context context;
     public String gold;
     public String silver;
@@ -21,11 +23,18 @@ public class HeaderUserViewModel {
     public float hpWeight;
     public String hpValueString;
 
+    public float xpWeight;
+    public String xpValueString;
+
+    public float mpWeight;
+    public String mpValueString;
+
     public HeaderUserViewModel(Context context) {
         this.context = context;
     }
 
     public HeaderUserViewModel setUser(User user) {
+        this.user = user;
         Stats stats = user.getStats();
         int gp = (stats.getGp().intValue());
         int sp = (int) ((stats.getGp() - gp) * 100);
@@ -33,6 +42,13 @@ public class HeaderUserViewModel {
         this.silver = String.valueOf(sp);
         Double gemCount = user.getBalance() * 4;
         this.gems = String.valueOf(gemCount.intValue());
+
+        this.hpValueString = formatValueString(stats.getHp(), stats.getMaxHealth());
+        this.hpWeight = getWeight(stats.getHp(), stats.getMaxHealth());
+        this.xpValueString = formatValueString(stats.getExp(), stats.getToNextLevel());
+        this.xpWeight = getWeight(stats.getExp(), stats.getToNextLevel());
+        this.mpValueString = formatValueString(stats.getMp(), stats.getMaxMP());
+        this.mpWeight = getWeight(stats.getMp(), stats.getMaxMP());
 
         if (user.getPreferences() != null && user.getFlags() != null && (user.getPreferences().getDisableClasses() || !user.getFlags().getClassSelected())) {
             levelString = context.getString(R.string.user_level, user.getStats().getLvl());
@@ -62,5 +78,13 @@ public class HeaderUserViewModel {
             }
         }
         return this;
+    }
+
+    private float getWeight(Double currentValue, Integer maxValue) {
+        return (float) Math.min(1, currentValue / maxValue);
+    }
+
+    private String formatValueString(Double currentValue, Integer maxValue) {
+        return currentValue.intValue() + "/" + maxValue;
     }
 }

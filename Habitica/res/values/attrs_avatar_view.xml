@@ -4,4 +4,14 @@
         <attr name="showMount" format="boolean" />
         <attr name="showPet" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="ValueBar">
+        <attr name="barColor" format="color" />
+        <attr name="barBackgroundColor" format="color" />
+        <attr name="barBackground" format="integer" />
+        <attr name="labelTextColor" format="color" />
+        <attr name="valueText" format="string" />
+        <attr name="iconRes" format="integer" />
+        <attr name="descriptionText" format="string" />
+    </declare-styleable>
 </resources>

@@ -7,7 +7,8 @@ import android.widget.TextView;
 
 import com.habitrpg.android.habitica.R;
 import com.habitrpg.android.habitica.components.AppComponent;
-import com.habitrpg.android.habitica.models.User;
+import com.habitrpg.android.habitica.views.AvatarView;
+import com.habitrpg.android.habitica.views.ValueBar;
 
 import javax.inject.Inject;
 
@@ -18,6 +19,9 @@ public class HeaderView extends FrameLayout implements HeaderViewInterface {
 
     @Inject
     HeaderPresenter presenter;
+
+    @BindView(R.id.avatar_view)
+    AvatarView avatarView;
 
     @BindView(R.id.lvl_tv)
     TextView levelTextView;
@@ -30,6 +34,15 @@ public class HeaderView extends FrameLayout implements HeaderViewInterface {
 
     @BindView(R.id.silver_tv)
     TextView silverTextView;
+
+    @BindView(R.id.hpBar)
+    ValueBar hpBar;
+
+    @BindView(R.id.xpBar)
+    ValueBar xpBar;
+
+    @BindView(R.id.mpBar)
+    ValueBar mpBar;
 
     public HeaderView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -62,11 +75,22 @@ public class HeaderView extends FrameLayout implements HeaderViewInterface {
 
     @Override
     public void setData(HeaderUserViewModel viewModel) {
+        avatarView.setUser(viewModel.user);
+
         levelTextView.setCompoundDrawables(viewModel.classDrawable, null, null, null);
         levelTextView.setText(viewModel.levelString);
         gemsTextView.setText(viewModel.gems);
         goldTextView.setText(viewModel.gold);
         silverTextView.setText(viewModel.silver);
+
+        hpBar.setValueText(viewModel.hpValueString);
+        hpBar.setPercentage(viewModel.hpWeight);
+
+        xpBar.setValueText(viewModel.xpValueString);
+        xpBar.setPercentage(viewModel.xpWeight);
+
+        mpBar.setValueText(viewModel.mpValueString);
+        mpBar.setPercentage(viewModel.mpWeight);
     }
 
     @Override
