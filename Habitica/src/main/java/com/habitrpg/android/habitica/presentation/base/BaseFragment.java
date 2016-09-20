@@ -45,6 +45,12 @@ public abstract class BaseFragment<M, V extends BaseView<M>, P extends BasePrese
         this.injectFragment(getComponent());
     }
 
+    @Override
+    public void onStop() {
+        this.presenter.stop();
+        super.onStop();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

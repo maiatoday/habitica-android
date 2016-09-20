@@ -9,12 +9,10 @@ import rx.Subscription;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
-public abstract class UseCase {
+public abstract class UseCase<Q extends UseCase.RequestValues, T> {
 
     private final ThreadExecutor threadExecutor;
     private final PostExecutionThread postExecutionThread;
-
-    private Subscription subscription = Subscriptions.empty();
 
     protected UseCase(ThreadExecutor threadExecutor,
                       PostExecutionThread postExecutionThread) {
@@ -25,28 +23,16 @@ public abstract class UseCase {
     /**
      * Builds an {@link rx.Observable} which will be used when executing the current {@link UseCase}.
      */
-    protected abstract Observable buildUseCaseObservable();
+    protected abstract Observable<T> buildUseCaseObservable(Q requestValues);
 
-    /**
-     * Executes the current use case.
-     *
-     * @param useCaseSubscriber The guy who will be listen to the observable build
-     * with {@link #buildUseCaseObservable()}.
-     */
     @SuppressWarnings("unchecked")
-    public void execute(Subscriber useCaseSubscriber) {
-        this.subscription = this.buildUseCaseObservable()
+    public Observable<T> observable(Q requestValues) {
+        return this.buildUseCaseObservable(requestValues)
                 .subscribeOn(postExecutionThread.getScheduler())
-                .observeOn(postExecutionThread.getScheduler())
-                .subscribe(useCaseSubscriber);
+                .observeOn(postExecutionThread.getScheduler());
     }
 
-    /**
-     * Unsubscribes from current {@link rx.Subscription}.
-     */
-    public void unsubscribe() {
-        if (!subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-        }
+    public interface RequestValues {
+
     }
 }

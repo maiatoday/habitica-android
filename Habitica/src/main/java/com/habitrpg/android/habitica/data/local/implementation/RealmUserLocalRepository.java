@@ -1,18 +1,18 @@
-package com.habitrpg.android.habitica.repositories.implementations;
+package com.habitrpg.android.habitica.data.local.implementation;
 
+import com.habitrpg.android.habitica.data.local.UserLocalRepository;
 import com.habitrpg.android.habitica.models.User;
 import com.habitrpg.android.habitica.old.HostConfig;
-import com.habitrpg.android.habitica.repositories.UserRepository;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
 import rx.Observable;
 
-public class RealmUserRepository extends RealmBaseRepository implements UserRepository {
+public class RealmUserLocalRepository extends RealmBaseLocalRepository implements UserLocalRepository {
 
     private final HostConfig config;
 
-    public RealmUserRepository(Realm realm, HostConfig config) {
+    public RealmUserLocalRepository(Realm realm, HostConfig config) {
         super(realm);
         this.config = config;
     }
@@ -25,5 +25,10 @@ public class RealmUserRepository extends RealmBaseRepository implements UserRepo
                         .findFirstAsync())
                         .filter(RealmObject::isLoaded)
                         .filter(RealmObject::isValid);
+    }
+
+    @Override
+    public void saveUser(User user) {
+        realm.executeTransactionAsync(realm1 -> realm1.insertOrUpdate(user));
     }
 }

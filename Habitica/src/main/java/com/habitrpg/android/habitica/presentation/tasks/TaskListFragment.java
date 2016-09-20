@@ -71,7 +71,7 @@ public class TaskListFragment extends BaseFragment<List<Task>, TaskListView, Tas
     @Override
     public void loadData(boolean pullToRefresh) {
         if (pullToRefresh) {
-            this.presenter.reload();
+            this.presenter.refresh();
         } else {
             this.presenter.loadTaskList();
         }

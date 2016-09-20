@@ -3,7 +3,7 @@ package com.habitrpg.android.habitica.presentation.header;
 import android.content.Context;
 
 import com.habitrpg.android.habitica.presentation.base.BasePresenter;
-import com.habitrpg.android.habitica.repositories.UserRepository;
+import com.habitrpg.android.habitica.data.UserRepository;
 
 import javax.inject.Inject;
 

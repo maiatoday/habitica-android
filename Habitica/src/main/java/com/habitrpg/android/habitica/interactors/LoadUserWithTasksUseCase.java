@@ -1,28 +1,37 @@
 package com.habitrpg.android.habitica.interactors;
 
+import com.habitrpg.android.habitica.data.TaskRepository;
+import com.habitrpg.android.habitica.data.UserRepository;
 import com.habitrpg.android.habitica.domain.executors.PostExecutionThread;
 import com.habitrpg.android.habitica.domain.executors.ThreadExecutor;
 import com.habitrpg.android.habitica.models.Task;
 import com.habitrpg.android.habitica.models.User;
-import com.habitrpg.android.habitica.network.ApiClient;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Observable;
+import rx.functions.Func2;
 
-public class LoadUserWithTasksUseCase extends UseCase {
+public class LoadUserWithTasksUseCase extends UseCase<LoadUserWithTasksUseCase.RequestValues, Void> {
 
-    private ApiClient client;
+    private final TaskRepository taskRepository;
+    private UserRepository userRepository;
 
-    public LoadUserWithTasksUseCase(ApiClient client, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    @Inject
+    public LoadUserWithTasksUseCase(UserRepository userRepository, TaskRepository taskRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
-        this.client = client;
+        this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
     }
 
     @Override
-    protected Observable buildUseCaseObservable() {
-        Observable<User> userObservable = this.client.getUser();
-            Observable<List<Task>> tasksObservable = this.client.getUserTasks();
-        return Observable.merge(userObservable, tasksObservable);
+    protected Observable<Void> buildUseCaseObservable(LoadUserWithTasksUseCase.RequestValues requestValues) {
+        Observable<User> userObservable = this.userRepository.refreshUser();
+            Observable<List<Task>> tasksObservable = this.taskRepository.refreshTasks();
+        return Observable.zip(userObservable, tasksObservable, (user, tasks) -> null);
     }
+
+    public static final class RequestValues implements UseCase.RequestValues {}
 }

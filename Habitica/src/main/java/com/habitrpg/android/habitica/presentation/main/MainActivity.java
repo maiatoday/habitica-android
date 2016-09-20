@@ -66,15 +66,6 @@ public class MainActivity extends BaseActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.detail_tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-        apiClient.getUserTasks().subscribe(tasks -> {
-            realm.executeTransactionAsync(realm1 -> realm1.insertOrUpdate(tasks));
-        }, throwable -> {});
-        apiClient.getUser().subscribe(user -> {
-            realm.executeTransactionAsync(realm1 -> {
-                realm1.insertOrUpdate(user);
-            });
-        }, throwable -> {});
     }
 
     @Override
